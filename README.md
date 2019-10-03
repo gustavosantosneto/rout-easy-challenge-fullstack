@@ -1,2 +1,6 @@
 # rout-easy-challenge-fullstack
-Desafio para avaliação habilidades full-stack
+
+Desafio para avaliação de habilidades full-stack
+
+Stack MEAN
+
