@@ -1,0 +1,32 @@
+{
+  "name": "rout-easy-challenge-fullstack",
+  "version": "1.0.0",
+  "description": "Route Easy FullStack Challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gustavosantosneto/rout-easy-challenge-fullstack.git"
+  },
+  "author": "Gustavo Santos Neto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gustavosantosneto/rout-easy-challenge-fullstack/issues"
+  },
+  "homepage": "https://github.com/gustavosantosneto/rout-easy-challenge-fullstack#readme",
+  "dependencies": {
+    "consign": "^0.1.6",
+    "consign-ignore": "^0.1.4",
+    "dotenv": "^8.1.0",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.3",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  },
+  "devDependencies": {
+    "@types/angular": "^1.6.56"
+  }
+}

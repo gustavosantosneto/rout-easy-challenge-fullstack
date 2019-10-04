@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Desafio de entregas</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+    <link rel="stylesheet" href="/css/delivery.css" />
+  </head>
+  <body>
+    <div id="app" ng-app="roat_easy_app" ng-controller="delivery_controller">
+      <nav class="box">
+        <input type="text" id="inp_customer_name" ng-model="customer_name" placeholder="Nome Cliente" />
+        <input type="Number" id="inp_weight" ng-model="weight" placeholder="Peso da Entrega (kg)" />
+        <span id="spa_search_address" ng-click="search_address_click">BUSCAR</span>
+        <input type="text" id="inp_address" ng-model="address" placeholder="Endereço Cliente" />
+
+        <input type="text" id="inp_lat" ng-model="lat" placeholder="Latitude" disabled />
+        <input type="text" id="inp_lng" ng-model="lng" placeholder="Longitude" disabled />
+
+        <input type="button" id="btn_save_click" ng-click="btn_save_click" value="CADASTRAR CLIENTE" />
+
+        <input type="button" id="btn_reset_click" ng-click="btn_reset_click" value="RESETAR CADASTRO" />
+      </nav>
+      <main class="box">
+        <div id="map"></div>
+        <div id="table_container">
+          <span>Total de Clientes: {{ total }}; Peso Total: {{ weight }}Kg; Ticket Médio*:{{ total }}</span>
+          <table>
+            <thead>
+              <th>Nome</th>
+              <th>Rua</th>
+              <th>Cidade</th>
+              <th>País</th>
+              <th>Peso</th>
+              <th>Lat</th>
+              <th>Lng</th>
+            </thead>
+            <tbody>
+              <td ng-repeat="">{{ values }}</td>
+            </tbody>
+          </table>
+          <span>Peso Total / Total de Clientes</span>
+        </div>
+      </main>
+    </div>
+
+    <script src="/js/libs/angular.min.js"></script>
+    <script src="/js/libs/leaflet.js"></script>
+    <script src="/js/delivery.js"></script>
+  </body>
+</html>
