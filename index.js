@@ -45,9 +45,6 @@ consign({ cwd: 'app', extensions: ['\\.js', '.json'], ignore: ['assets'] })
   .then('routes')
   .into(app)
 
-// workaround pois o parametro de cwd do consign não funcionou
-// app = { ...app, ...app.app }
-
 // CATCH 404 AND FORWARD TO ERROR HANDLER
 app.use((req, res, next) => {
   console.error({ ul: req.url, method: req.method, body: req.body }, 404)
@@ -56,7 +53,9 @@ app.use((req, res, next) => {
 })
 
 http.listen(process.env.PORT, async () => {
-  console.debug(`\n****************************** |\t\tRODANDO NA PORTA : ${process.env.PORT}\t\t| ******************************`)
+  console.debug(
+    `\n****************************** |\t\tRODANDO NA PORTA : ${process.env.PORT}\t\t| ******************************`
+  )
 })
 
 // EXPORTS:

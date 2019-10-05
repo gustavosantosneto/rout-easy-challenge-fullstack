@@ -4,7 +4,8 @@
   "description": "Route Easy FullStack Challenge",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon index.js"
+    "test": "nodemon index.js",
+    "start": "npm install && node index.js"
   },
   "repository": {
     "type": "git",

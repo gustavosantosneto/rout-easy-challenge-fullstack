@@ -66,7 +66,7 @@ module.exports = app => {
 
   const search_address_google = async address_string => {
     try {
-      let addr = await google_goe_api(address_string)
+      let addr = await google_geo_api(address_string)
       console.debug(JSON.stringify(addr))
 
       if (addr.error || addr.data.status !== 'OK' || addr.data.results.length === 0 || address_string === 'teste error')
@@ -111,7 +111,7 @@ module.exports = app => {
     }
   }
 
-  const google_goe_api = async address_string => {
+  const google_geo_api = async address_string => {
     try {
       const options = {
         json: true,

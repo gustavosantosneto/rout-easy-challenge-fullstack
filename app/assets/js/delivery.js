@@ -1,6 +1,7 @@
 let app = angular.module('roat_easy_app', [])
 
 app.controller('delivery_controller', ($scope, $http, $timeout) => {
+  // VARIAVEIS GLOBAIS
   $scope.form_customer = { endereco: { geo_localizacao: {} } }
   $scope.customers = []
   $scope.markers = []
@@ -86,19 +87,6 @@ app.controller('delivery_controller', ($scope, $http, $timeout) => {
     )
   }
 
-  const save_customer = data => {
-    $http({
-      method: 'POST',
-      url: '/deliveries',
-      data
-    }).then(res => {}, err => {})
-  }
-
-  const update_metrics = () => {
-    $scope.total_weight = $scope.customers.reduce((sum, item) => sum + item.peso_kg, 0)
-    $scope.avg_ticket = ($scope.total_weight / $scope.customers.length).toFixed(1)
-  }
-
   const search_error = error => {
     $scope.form_customer.endereco = { geo_localizacao: {} }
     $scope.form_customer.endereco.address = error || 'Falha ao buscar endereço'
@@ -106,6 +94,8 @@ app.controller('delivery_controller', ($scope, $http, $timeout) => {
       $scope.form_customer.endereco.address = null
     }, 3000)
   }
+
+  $scope.search_address_click = search_address
 
   // AO DIGITAR ALGO
   document.addEventListener('keypress', e => {
@@ -119,7 +109,18 @@ app.controller('delivery_controller', ($scope, $http, $timeout) => {
     }
   })
 
-  $scope.search_address_click = search_address
+  const save_customer = data => {
+    $http({
+      method: 'POST',
+      url: '/deliveries',
+      data
+    }).then(res => {}, err => {})
+  }
+
+  const update_metrics = () => {
+    $scope.total_weight = $scope.customers.reduce((sum, item) => sum + item.peso_kg, 0)
+    $scope.avg_ticket = ($scope.total_weight / $scope.customers.length).toFixed(1)
+  }
 
   $scope.btn_save_click = () => {
     if (!$scope.form_customer.nome_cliente) return

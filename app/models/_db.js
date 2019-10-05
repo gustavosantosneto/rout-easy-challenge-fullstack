@@ -1,4 +1,5 @@
 module.exports = app => {
+  // ABRE CONEXAO E RETORNA
   const connection = connection_string => {
     try {
       app.mongoose.connect(connection_string, {

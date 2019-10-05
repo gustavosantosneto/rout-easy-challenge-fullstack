@@ -32,6 +32,5 @@ module.exports = app => {
 
   return {
     model
-    //insert
   }
 }

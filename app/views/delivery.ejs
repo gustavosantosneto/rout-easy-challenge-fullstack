@@ -6,17 +6,21 @@
 
     <title>Desafio de entregas</title>
 
+    <!-- lib de mapa -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
       integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
       crossorigin=""
     />
+
     <link rel="stylesheet" href="/css/delivery.css" />
   </head>
   <body>
     <div id="app" ng-app="roat_easy_app" ng-controller="delivery_controller">
+      <!-- lateral esquerda -->
       <nav class="box">
+        <!-- form de cadastro de cliente -->
         <div class="card">
           <input type="text" id="inp_customer_name" ng-model="form_customer.nome_cliente" placeholder="Nome Cliente" />
           <input type="Number" id="inp_weight" ng-model="form_customer.peso_kg" placeholder="Peso da Entrega (kg)" />
@@ -45,10 +49,12 @@
 
           <input type="button" id="btn_save_click" ng-click="btn_save_click()" value="CADASTRAR CLIENTE" />
         </div>
+
         <div class="card reset-card">
           <input type="button" id="btn_reset_click" ng-click="btn_reset_click()" value="RESETAR CADASTRO" />
         </div>
       </nav>
+      <!-- container do mapa e tabela de clientes -->
       <main class="box">
         <div id="map"></div>
 
@@ -69,6 +75,7 @@
               </tr>
             </thead>
           </table>
+          <!-- itens da tabela com rolagem -->
           <div id="tbody_container">
             <table>
               <tbody>
