@@ -5,15 +5,27 @@ body {
 #app {
   display: flex;
   padding: 10px;
-  background: #eee;
+  background: #fff;
 }
 
 .box {
-  background: #ddd;
+  background: #f8f8f8;
   padding: 10px;
   margin-right: 3px;
   height: calc(100vh - 40px);
 }
+
+.card {
+  background: #f2f2f2;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.reset-card {
+  margin-top: 30px;
+}
+
 nav {
   width: 30%;
   border-radius: 10px 0 0 10px;
@@ -33,18 +45,25 @@ input {
   width: fill-available;
   margin: 5px;
   border-radius: 3px;
-  border: 1px solid #bbb;
+  border: 1px solid #ccc;
   padding: 4px 8px;
 }
 
 #map {
   padding: 20px;
-  height: calc(70vh - 40px);
+  height: calc(55vh - 40px);
+  border-radius: 10px;
 }
 
 #table_container {
-  padding: 20px;
-  height: calc(30vh - 80px);
+  padding: 20px 0;
+  height: calc(45vh - 80px);
+}
+
+#tbody_container {
+  height: calc(37vh - 80px);
+  max-height: calc(37vh - 80px);
+  overflow: auto;
 }
 
 input[type='number']::-webkit-inner-spin-button,
@@ -56,7 +75,7 @@ input[type='number']::-webkit-outer-spin-button {
 #spa_search_address {
   text-align: right;
   display: grid;
-  margin-top: -23px;
+  margin-top: -26px;
   margin-bottom: 10px;
   margin-right: 10px;
   text-decoration: underline;
@@ -65,4 +84,33 @@ input[type='number']::-webkit-outer-spin-button {
 
 span {
   font-size: calc(0.5vw + 1vh);
+}
+
+#inp_address {
+  padding-right: 55px;
+}
+
+td,
+th {
+  padding: 3px 6px;
+  word-break: break-word;
+}
+
+th {
+  background-color: #a5a5a5;
+}
+
+table {
+  width: 100%;
+  font-family: monospace;
+}
+
+#btn_reset_click {
+  background-color: #ff3939;
+  color: #fff;
+}
+
+#btn_save_click {
+  background-color: #3cbc8d;
+  color: #fff;
 }

@@ -10,7 +10,7 @@ module.exports = app => {
 
       endereco: {
         complemento: { type: String, default: '' },
-        numero: { type: Number, default: 0 },
+        numero: { type: String, default: 's/n' },
         logradouro: { type: String, default: '' },
         bairro: { type: String, default: '' },
         cidade: { type: String, default: '' },

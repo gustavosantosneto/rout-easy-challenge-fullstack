@@ -6,43 +6,85 @@
 
     <title>Desafio de entregas</title>
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""
+    />
     <link rel="stylesheet" href="/css/delivery.css" />
   </head>
   <body>
     <div id="app" ng-app="roat_easy_app" ng-controller="delivery_controller">
       <nav class="box">
-        <input type="text" id="inp_customer_name" ng-model="customer_name" placeholder="Nome Cliente" />
-        <input type="Number" id="inp_weight" ng-model="weight" placeholder="Peso da Entrega (kg)" />
-        <span id="spa_search_address" ng-click="search_address_click">BUSCAR</span>
-        <input type="text" id="inp_address" ng-model="address" placeholder="Endereço Cliente" />
+        <div class="card">
+          <input type="text" id="inp_customer_name" ng-model="form_customer.nome_cliente" placeholder="Nome Cliente" />
+          <input type="Number" id="inp_weight" ng-model="form_customer.peso_kg" placeholder="Peso da Entrega (kg)" />
+          <input
+            type="text"
+            id="inp_address"
+            ng-model="form_customer.endereco.address"
+            placeholder="Endereço Cliente"
+          />
+          <span id="spa_search_address" ng-click="search_address_click()">BUSCAR</span>
 
-        <input type="text" id="inp_lat" ng-model="lat" placeholder="Latitude" disabled />
-        <input type="text" id="inp_lng" ng-model="lng" placeholder="Longitude" disabled />
+          <input
+            type="text"
+            id="inp_lat"
+            ng-model="form_customer.endereco.geo_localizacao.latitude"
+            placeholder="Latitude"
+            disabled
+          />
+          <input
+            type="text"
+            id="inp_lng"
+            ng-model="form_customer.endereco.geo_localizacao.longitude"
+            placeholder="Longitude"
+            disabled
+          />
 
-        <input type="button" id="btn_save_click" ng-click="btn_save_click" value="CADASTRAR CLIENTE" />
-
-        <input type="button" id="btn_reset_click" ng-click="btn_reset_click" value="RESETAR CADASTRO" />
+          <input type="button" id="btn_save_click" ng-click="btn_save_click()" value="CADASTRAR CLIENTE" />
+        </div>
+        <div class="card reset-card">
+          <input type="button" id="btn_reset_click" ng-click="btn_reset_click()" value="RESETAR CADASTRO" />
+        </div>
       </nav>
       <main class="box">
         <div id="map"></div>
+
         <div id="table_container">
-          <span>Total de Clientes: {{ total }}; Peso Total: {{ weight }}Kg; Ticket Médio*:{{ total }}</span>
+          <span>
+            Total de Clientes: {{ customers.length }}; Peso Total: {{ total_weight }}Kg; Ticket Médio*:{{ avg_ticket }}
+          </span>
           <table>
             <thead>
-              <th>Nome</th>
-              <th>Rua</th>
-              <th>Cidade</th>
-              <th>País</th>
-              <th>Peso</th>
-              <th>Lat</th>
-              <th>Lng</th>
+              <tr>
+                <th style="width:19%">Nome</th>
+                <th style="width:19%">Rua</th>
+                <th style="width:16%">Cidade</th>
+                <th style="width:16%">País</th>
+                <th style="width:10%">Peso</th>
+                <th style="width:10%">Lat</th>
+                <th style="width:10%">Lng</th>
+              </tr>
             </thead>
-            <tbody>
-              <td ng-repeat="">{{ values }}</td>
-            </tbody>
           </table>
-          <span>Peso Total / Total de Clientes</span>
+          <div id="tbody_container">
+            <table>
+              <tbody>
+                <tr ng-repeat="customer in customers" style="background-color: {{ $odd ? '#f0f0f0' : '#e1e1e1' }}">
+                  <td style="width:19%" ng-bind="customer.nome_cliente"></td>
+                  <td style="width:19%" ng-bind="customer.endereco.logradouro"></td>
+                  <td style="width:16%" ng-bind="customer.endereco.cidade"></td>
+                  <td style="width:16%" ng-bind="customer.endereco.pais"></td>
+                  <td style="width:10%" ng-bind="customer.peso_kg "></td>
+                  <td style="width:10%" ng-bind="customer.endereco.geo_localizacao.latitude.toFixed(3)"></td>
+                  <td style="width:10%" ng-bind="customer.endereco.geo_localizacao.longitude.toFixed(3)"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <span>*Peso Total / Total de Clientes</span>
         </div>
       </main>
     </div>

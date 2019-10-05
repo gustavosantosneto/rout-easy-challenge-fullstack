@@ -7,25 +7,25 @@ module.exports = app => {
   })
 
   app.get('/deliveries', async (req, res) => {
-    const result = await app.controllers.delivery.get_all()
+    const result = await app.controllers.delivery.get_all().catch()
 
     return app.routes.common.response(res, result)
   })
 
   app.post('/deliveries', async (req, res) => {
-    const result = await app.controllers.delivery.create(req.body)
+    const result = await app.controllers.delivery.create(req.body).catch()
 
     return app.routes.common.response(res, result)
   })
 
   app.delete('/deliveries', async (req, res) => {
-    const result = await app.controllers.delivery.delete_delivery()
+    const result = await app.controllers.delivery.delete_delivery().catch()
 
     return app.routes.common.response(res, result)
   })
 
   app.get('/deliveries/search_address/:addres_string', async (req, res) => {
-    const result = await app.controllers.delivery.search_address_google(req.params.addres_string)
+    const result = await app.controllers.delivery.search_address_google(req.params.addres_string).catch()
 
     return app.routes.common.response(res, result)
   })
