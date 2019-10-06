@@ -19,7 +19,13 @@ module.exports = app => {
   })
 
   app.delete('/deliveries', async (req, res) => {
-    const result = await app.controllers.delivery.delete_delivery().catch()
+    const result = await app.controllers.delivery.delete_all_deliveries().catch()
+
+    return app.routes.common.response(res, result)
+  })
+
+  app.delete('/deliveries/:id', async (req, res) => {
+    const result = await app.controllers.delivery.delete_delivery(req.params.id).catch()
 
     return app.routes.common.response(res, result)
   })

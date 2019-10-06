@@ -50,7 +50,7 @@ Data de recebimento do desafio: 03/10/2019
 
 ###### -Não pede nenhum tipo de confirmação para deletar tudo (seria o ideal)
 
-###### Gostaria de deixar claro que é apenas um protótipo, sem muitas validações, nem otimização de desempenho, apenas para demonstrar conhecimento nas linguagens !!!
+###### Por ser um protótipo, esta sem muitas validações, nem otimização de desempenho, apenas para demonstrar conhecimento nas linguagens !!!
 
 ###### Quanto ao layout, torná-lo responsivo levaria mais tempo de adaptações, e provavelmente usaria alguma lib como o Materialize ou Material Design como de costume, mas neste caso esta simplificado e a largura mínima da tela é de 800px
 

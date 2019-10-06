@@ -46,7 +46,25 @@ module.exports = app => {
     })
   }
 
-  const delete_delivery = async => {
+  const delete_delivery = async _id => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        app.models.delivery.model
+          .deleteOne({ _id })
+          .then(result => {
+            resolve(result)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      } catch (err) {
+        console.error(err.stack || err)
+        reject({ code: 500, data: null, error: 'Erro não esperado' })
+      }
+    })
+  }
+
+  const delete_all_deliveries = async => {
     return new Promise(async (resolve, reject) => {
       try {
         app.models.delivery.model
@@ -157,6 +175,7 @@ module.exports = app => {
     create,
     get_all,
     delete_delivery,
+    delete_all_deliveries,
     search_address_google
   }
 }

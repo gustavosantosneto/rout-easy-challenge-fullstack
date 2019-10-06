@@ -67,11 +67,12 @@
               <tr>
                 <th style="width:19%">Nome</th>
                 <th style="width:19%">Rua</th>
-                <th style="width:16%">Cidade</th>
-                <th style="width:16%">País</th>
-                <th style="width:10%">Peso</th>
+                <th style="width:14%">Cidade</th>
+                <th style="width:14%">País</th>
+                <th style="width:9%">Peso</th>
                 <th style="width:10%">Lat</th>
                 <th style="width:10%">Lng</th>
+                <th style="width:5%"></th>
               </tr>
             </thead>
           </table>
@@ -82,11 +83,12 @@
                 <tr ng-repeat="customer in customers" style="background-color: {{ $odd ? '#f0f0f0' : '#e1e1e1' }}">
                   <td style="width:19%" ng-bind="customer.nome_cliente"></td>
                   <td style="width:19%" ng-bind="customer.endereco.logradouro"></td>
-                  <td style="width:16%" ng-bind="customer.endereco.cidade"></td>
-                  <td style="width:16%" ng-bind="customer.endereco.pais"></td>
-                  <td style="width:10%" ng-bind="customer.peso_kg "></td>
+                  <td style="width:14%" ng-bind="customer.endereco.cidade"></td>
+                  <td style="width:14%" ng-bind="customer.endereco.pais"></td>
+                  <td style="width:9%" ng-bind="customer.peso_kg "></td>
                   <td style="width:10%" ng-bind="customer.endereco.geo_localizacao.latitude.toFixed(3)"></td>
                   <td style="width:10%" ng-bind="customer.endereco.geo_localizacao.longitude.toFixed(3)"></td>
+                  <td style="width:5%;" class="delete_row" ng-click="delete_customer(customer._id)">X</td>
                 </tr>
               </tbody>
             </table>

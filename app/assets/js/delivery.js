@@ -4,7 +4,6 @@ app.controller('delivery_controller', ($scope, $http, $timeout) => {
   // VARIAVEIS GLOBAIS
   $scope.form_customer = { endereco: { geo_localizacao: {} } }
   $scope.customers = []
-  $scope.markers = []
   $scope.total_weight = 0
   $scope.avg_ticket = 0
   $scope.map = null
@@ -39,12 +38,20 @@ app.controller('delivery_controller', ($scope, $http, $timeout) => {
       ev.target.closePopup()
     })
 
-    $scope.markers.push(marker)
+    $scope.customers.filter(c => customer._id == c._id)[0].marker = marker
+
     if (fit) {
-      var group = new L.featureGroup($scope.markers)
+      var group = new L.featureGroup(get_markers())
       console.log(group.getBounds())
       $scope.map.fitBounds(group.getBounds())
     }
+  }
+
+  const get_markers = () => {
+    return $scope.customers.reduce((acum, item) => {
+      acum.push(item.marker)
+      return acum
+    }, [])
   }
 
   const get_customers = () => {
@@ -57,15 +64,20 @@ app.controller('delivery_controller', ($scope, $http, $timeout) => {
 
         $scope.customers = res.data.data || []
 
-        update_metrics()
+        if ($scope.customers.length > 0) {
+          update_metrics()
 
-        $scope.customers.map(c => create_marker(c))
+          $scope.customers.map(c => create_marker(c))
 
-        var group = new L.featureGroup($scope.markers)
-        console.log(group.getBounds())
-        $scope.map.fitBounds(group.getBounds())
+          var group = new L.featureGroup(get_markers())
+          console.log(group.getBounds())
+          $scope.map.fitBounds(group.getBounds(), { padding: [100, 100] })
+        }
       },
-      err => {}
+      err => {
+        debugger
+        console.error(err)
+      }
     )
   }
 
@@ -82,6 +94,8 @@ app.controller('delivery_controller', ($scope, $http, $timeout) => {
         $scope.form_customer.endereco = { ...$scope.form_customer.endereco, ...res.data.data }
       },
       err => {
+        debugger
+        console.error(err)
         search_error()
       }
     )
@@ -110,16 +124,29 @@ app.controller('delivery_controller', ($scope, $http, $timeout) => {
   })
 
   const save_customer = data => {
+    // CLONA OBJ PARA NAO AFETAR OBJ ORIGINAL
+    data = { ...data }
+    delete data.marker
     $http({
       method: 'POST',
       url: '/deliveries',
       data
-    }).then(res => {}, err => {})
+    }).then(
+      res => {
+        console.log(res)
+        $scope.form_customer._id = res.data._id
+      },
+      err => {
+        debugger
+        console.error(err)
+      }
+    )
   }
 
   const update_metrics = () => {
     $scope.total_weight = $scope.customers.reduce((sum, item) => sum + item.peso_kg, 0)
-    $scope.avg_ticket = ($scope.total_weight / $scope.customers.length).toFixed(1)
+    $scope.avg_ticket = $scope.total_weight / $scope.customers.length || 0
+    $scope.avg_ticket = $scope.avg_ticket.toFixed($scope.avg_ticket % 1 === 0 ? 0 : 1)
   }
 
   $scope.btn_save_click = () => {
@@ -127,23 +154,53 @@ app.controller('delivery_controller', ($scope, $http, $timeout) => {
     if ($scope.form_customer.peso_kg === undefined || $scope.form_customer.peso_kg === 0) return
     if ($scope.form_customer.endereco.geo_localizacao.latitude === undefined) return
 
-    $scope.customers.push($scope.form_customer)
     save_customer($scope.form_customer)
+    $scope.customers.push($scope.form_customer)
     create_marker($scope.form_customer, true)
     $scope.form_customer = {}
 
     update_metrics()
   }
 
+  $scope.delete_customer = id => {
+    if (!id) return
+
+    const marker = $scope.customers.filter(c => c._id == c._id)[0].marker
+
+    $scope.map.removeLayer(marker)
+
+    $scope.customers = $scope.customers.filter(c => c._id != id)
+
+    $http({
+      method: 'DELETE',
+      url: `/deliveries/${id}`
+    }).then(
+      res => {},
+      err => {
+        debugger
+        console.error(err.message)
+      }
+    )
+
+    update_metrics()
+  }
+
   $scope.btn_reset_click = () => {
+    $scope.customers.map(c => $scope.map.removeLayer(c.marker))
     $scope.customers = []
 
-    $scope.markers.map(m => $scope.map.removeLayer(m))
+    update_metrics()
 
     $http({
       method: 'DELETE',
       url: `/deliveries`
-    }).then(res => {}, err => {})
+    }).then(
+      res => {},
+      err => {
+        debugger
+        console.error(err)
+      }
+    )
   }
 
   init()

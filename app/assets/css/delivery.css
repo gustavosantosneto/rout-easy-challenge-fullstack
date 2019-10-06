@@ -1,3 +1,7 @@
+::-webkit-scrollbar {
+  width: 0px;
+}
+
 body {
   margin: 0;
 }
@@ -113,4 +117,12 @@ table {
 #btn_save_click {
   background-color: #3cbc8d;
   color: #fff;
+}
+
+.delete_row {
+  color: #ff3939;
+  font-weight: 900;
+  cursor: pointer;
+  text-align: center;
+  font-size: 130%;
 }
