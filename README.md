@@ -40,7 +40,7 @@ Data de recebimento do desafio: 03/10/2019
 
 #### Observações
 
-###### Gostaria muito de utilizar o sweetlert2 para notificar algumas coisas, mas por ser um protótipo, preferi não entrar nos mínimos detalhes !!!
+###### Gostaria muito de utilizar o sweetlert2 para notificar algumas coisas, mas por ser um protótipo, acabei não entrando nos mínimos detalhes !!!
 
 ###### Algumas validações bruscas estão sendo feitas sem aviso, apenas para simplificar:
 
@@ -50,7 +50,7 @@ Data de recebimento do desafio: 03/10/2019
 
 ###### -Não pede nenhum tipo de confirmação para deletar tudo (seria o ideal)
 
-###### Por ser um protótipo, esta sem muitas validações, nem otimização de desempenho, apenas para demonstrar conhecimento nas linguagens !!!
+###### Esta sem muitas validações, nem otimização de desempenho
 
 ###### Quanto ao layout, torná-lo responsivo levaria mais tempo de adaptações, e provavelmente usaria alguma lib como o Materialize ou Material Design como de costume, mas neste caso esta simplificado e a largura mínima da tela é de 800px
 
