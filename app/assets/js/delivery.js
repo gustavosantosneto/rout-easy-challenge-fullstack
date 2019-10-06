@@ -42,7 +42,6 @@ app.controller('delivery_controller', ($scope, $http, $timeout) => {
 
     if (fit) {
       var group = new L.featureGroup(get_markers())
-      console.log(group.getBounds())
       $scope.map.fitBounds(group.getBounds())
     }
   }
@@ -70,7 +69,6 @@ app.controller('delivery_controller', ($scope, $http, $timeout) => {
           $scope.customers.map(c => create_marker(c))
 
           var group = new L.featureGroup(get_markers())
-          console.log(group.getBounds())
           $scope.map.fitBounds(group.getBounds(), { padding: [100, 100] })
         }
       },
@@ -82,7 +80,6 @@ app.controller('delivery_controller', ($scope, $http, $timeout) => {
   }
 
   const search_address = () => {
-    console.log('search_address', $scope.form_customer)
     if (!$scope.form_customer.endereco.address || $scope.form_customer.endereco.address.length < 5) return
     $http({
       method: 'GET',
@@ -123,18 +120,17 @@ app.controller('delivery_controller', ($scope, $http, $timeout) => {
     }
   })
 
-  const save_customer = data => {
+  const save_customer = async data => {
     // CLONA OBJ PARA NAO AFETAR OBJ ORIGINAL
     data = { ...data }
     delete data.marker
-    $http({
+    await $http({
       method: 'POST',
       url: '/deliveries',
       data
     }).then(
       res => {
-        console.log(res)
-        $scope.form_customer._id = res.data._id
+        $timeout(($scope.form_customer._id = res.data._id))
       },
       err => {
         debugger
@@ -149,13 +145,18 @@ app.controller('delivery_controller', ($scope, $http, $timeout) => {
     $scope.avg_ticket = $scope.avg_ticket.toFixed($scope.avg_ticket % 1 === 0 ? 0 : 1)
   }
 
-  $scope.btn_save_click = () => {
+  $scope.btn_save_click = async () => {
     if (!$scope.form_customer.nome_cliente) return
-    if ($scope.form_customer.peso_kg === undefined || $scope.form_customer.peso_kg === 0) return
+    if (
+      $scope.form_customer.peso_kg === undefined ||
+      $scope.form_customer.peso_kg === 0 ||
+      $scope.form_customer.peso_kg === null
+    )
+      return
     if ($scope.form_customer.endereco.geo_localizacao.latitude === undefined) return
 
-    save_customer($scope.form_customer)
-    $scope.customers.push($scope.form_customer)
+    await save_customer($scope.form_customer)
+    $scope.customers.push({ ...$scope.form_customer })
     create_marker($scope.form_customer, true)
     $scope.form_customer = {}
 
@@ -178,7 +179,7 @@ app.controller('delivery_controller', ($scope, $http, $timeout) => {
       res => {},
       err => {
         debugger
-        console.error(err.message)
+        console.error(err)
       }
     )
 
